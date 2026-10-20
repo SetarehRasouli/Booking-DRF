@@ -82,5 +82,50 @@ All endpoints were manually tested using Postman. A Postman collection is includ
 
 Race condition handling was additionally verified with a concurrency test script using Python's `threading` module, simulating two simultaneous booking requests for the same slot.
 
+
+
+## Running with Docker
+
+### Prerequisites
+- Docker and Docker Compose
+
+
+2. Create your environment file and fill in the values:
+```bash
+   cp .env.example .env
+```
+3. Build and start the containers:
+```bash
+   docker compose up --build
+```
+4. The API will be available at http://localhost:8000
+
+### Environment variables
+| Variable | Description |
+|---|---|
+| `SECRET_KEY` | Django secret key |
+| `DEBUG` | `True` for development |
+| `DB_NAME` | Database name |
+| `DB_USER` | Database user |
+| `DB_PASSWORD` | Database password |
+
+### Useful commands
+```bash
+# Run migrations (if not run automatically)
+docker compose exec web python manage.py migrate
+
+# Create an admin user
+docker compose exec web python manage.py createsuperuser
+
+# Run tests
+docker compose exec web python manage.py test
+
+# Stop the containers
+docker compose down
+
+# Stop and delete the database volume
+docker compose down -v
+```
+
 ## Author
 [Setareh Rasouli] — [https://github.com/setarehrasouli]
